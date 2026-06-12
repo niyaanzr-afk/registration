@@ -6,7 +6,6 @@ import 'package:registration/service.dart';
 import 'package:registration/signup.dart';
 
 class Login extends StatefulWidget {
-  
   @override
   State<Login> createState() => _LoginState();
 }
@@ -15,11 +14,13 @@ class _LoginState extends State<Login> {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
+  bool isvisible = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Form(key:formkey,
+      body: Form(
+        key: formkey,
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(50),
@@ -41,19 +42,23 @@ class _LoginState extends State<Login> {
                 SizedBox(height: 60),
                 Padding(
                   padding: const EdgeInsets.only(left: 50, right: 50),
-                  child: Align(alignment: Alignment.topLeft, child: Text("Email")),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text("Email"),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 50, right: 50),
-                  child: TextFormField(validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Email is required";
-                    }
-                    if (!(value.contains("@") && value.contains("."))) {
-                      return "Enter a valid email";
-                    }
-                    return null;
-                  },
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Email is required";
+                      }
+                      if (!(value.contains("@") && value.contains("."))) {
+                        return "Enter a valid email";
+                      }
+                      return null;
+                    },
                     controller: emailcontroller,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -63,7 +68,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(height: 30),
-                
+
                 Padding(
                   padding: const EdgeInsets.only(left: 50, right: 50),
                   child: Align(
@@ -73,44 +78,64 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 50, right: 50),
-                  child: TextFormField(validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Password is required";
-                    }
-                    if ((value.length==6)) {
-                      return "Enter a valid password";
-                    }
-                    return null;
-                  },
+                  child: TextFormField(
+                    obscureText: isvisible,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Password is required";
+                      }
+                      if ((value.length == 6)) {
+                        return "Enter a valid password";
+                      }
+                      return null;
+                    },
                     controller: passwordcontroller,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isvisible = !isvisible;
+                          });
+                        },
+                        icon: isvisible?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                      ),
                       fillColor: Colors.white,
                       filled: true,
                     ),
                   ),
                 ),
-                SizedBox(height: 40), Align(alignment: Alignment.bottomRight,
-                  child: GestureDetector(onTap: () {
-                    Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: ((context) => Forgot())),
-                        );
-                  },
-                  child: Text("Forgot password?",style: GoogleFonts.aBeeZee(color: Colors.lightBlue),))),
+                SizedBox(height: 40),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: ((context) => Forgot())),
+                      );
+                    },
+                    child: Text(
+                      "Forgot password?",
+                      style: GoogleFonts.aBeeZee(color: Colors.lightBlue),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 50,
                   width: 400,
                   child: ElevatedButton(
-                    onPressed: () {if (formkey.currentState!.validate()) {
-                         login(
-                      
+                    onPressed: () {
+                      if (formkey.currentState!.validate()) {
+                        login(
                           emailcontroller.text,
                           passwordcontroller.text,
                           context,
-                        );emailcontroller.clear();
+                        );
+                        emailcontroller.clear();
                         passwordcontroller.clear();
-                      }},
+                      }
+                    },
                     child: Text("Login"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.lightBlue,
@@ -123,7 +148,10 @@ class _LoginState extends State<Login> {
                   children: [
                     Text(
                       "Don't have an account?",
-                      style: GoogleFonts.aBeeZee(color: Colors.black, fontSize: 15),
+                      style: GoogleFonts.aBeeZee(
+                        color: Colors.black,
+                        fontSize: 15,
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {

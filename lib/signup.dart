@@ -14,6 +14,7 @@ class _SignupState extends State<Signup> {
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController confirmpasswordcontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
+  bool isvisible = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +76,7 @@ class _SignupState extends State<Signup> {
                 ),
                 SizedBox(height: 30),
                 Align(alignment: Alignment.topLeft, child: Text("Password")),
-                TextFormField(
+                TextFormField(obscureText: isvisible,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Password is required";
@@ -88,6 +89,14 @@ class _SignupState extends State<Signup> {
                   controller: passwordcontroller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isvisible = !isvisible;
+                          });
+                        },
+                        icon: isvisible?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                      ),
                     fillColor: Colors.white,
                     filled: true,
                   ),
@@ -97,7 +106,7 @@ class _SignupState extends State<Signup> {
                   alignment: Alignment.topLeft,
                   child: Text("Confirm Password"),
                 ),
-                TextFormField(
+                TextFormField(obscureText: isvisible,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Password is required";
@@ -110,6 +119,14 @@ class _SignupState extends State<Signup> {
                   controller: confirmpasswordcontroller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isvisible = !isvisible;
+                          });
+                        },
+                        icon: isvisible?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                      ),
                     fillColor: Colors.white,
                     filled: true,
                   ),
