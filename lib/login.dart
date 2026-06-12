@@ -13,11 +13,12 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
+  final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Form(
+      body: Form(key:formkey,
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(50),
@@ -43,7 +44,16 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 50, right: 50),
-                  child: TextFormField(controller: emailcontroller,
+                  child: TextFormField(validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Email is required";
+                    }
+                    if (!(value.contains("@") && value.contains("."))) {
+                      return "Enter a valid email";
+                    }
+                    return null;
+                  },
+                    controller: emailcontroller,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       fillColor: Colors.white,
@@ -62,7 +72,16 @@ class _LoginState extends State<Login> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 50, right: 50),
-                  child: TextFormField(controller: passwordcontroller,
+                  child: TextFormField(validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Password is required";
+                    }
+                    if ((value.length==6)) {
+                      return "Enter a valid password";
+                    }
+                    return null;
+                  },
+                    controller: passwordcontroller,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       fillColor: Colors.white,
@@ -82,7 +101,9 @@ class _LoginState extends State<Login> {
                   height: 50,
                   width: 400,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {if (formkey.currentState!.validate()) {
+                        print("save");
+                      }},
                     child: Text("Login"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.lightBlue,

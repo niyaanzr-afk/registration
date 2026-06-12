@@ -7,6 +7,6 @@ import 'package:registration/welcome.dart';
 void main() {
   runApp(MaterialApp(
 debugShowCheckedModeBanner: false,
-home: Forgot() ),); 
+home: Welcome() ),); 
 }
 
