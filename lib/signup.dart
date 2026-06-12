@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:registration/login.dart';
+import 'package:registration/service.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -120,7 +121,16 @@ class _SignupState extends State<Signup> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (formkey.currentState!.validate()) {
-                        print("save");
+                        register(
+                          usernamecontroller.text,
+                          emailcontroller.text,
+                          passwordcontroller.text,
+                          context,
+                        );
+                        usernamecontroller.clear();
+                        emailcontroller.clear();
+                        passwordcontroller.clear();
+                        confirmpasswordcontroller.clear();
                       }
                     },
                     child: Text("Sign up"),

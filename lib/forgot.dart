@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:registration/login.dart';
+import 'package:registration/service.dart';
 
 class Forgot extends StatelessWidget {
   TextEditingController emailcontroller = TextEditingController();
@@ -53,7 +54,13 @@ class Forgot extends StatelessWidget {
                   width: 400,
                   child: ElevatedButton(
                     onPressed: () {if (formkey.currentState!.validate()) {
-                        print("save");
+                        password(
+                          
+                          emailcontroller.text,
+                          
+                          context,
+                        );emailcontroller.clear();
+                      
                       }},
                     child: Text("Send link"),
                     style: ElevatedButton.styleFrom(

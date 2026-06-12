@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:registration/forgot.dart';
+import 'package:registration/service.dart';
 import 'package:registration/signup.dart';
 
 class Login extends StatefulWidget {
@@ -102,7 +103,13 @@ class _LoginState extends State<Login> {
                   width: 400,
                   child: ElevatedButton(
                     onPressed: () {if (formkey.currentState!.validate()) {
-                        print("save");
+                         login(
+                      
+                          emailcontroller.text,
+                          passwordcontroller.text,
+                          context,
+                        );emailcontroller.clear();
+                        passwordcontroller.clear();
                       }},
                     child: Text("Login"),
                     style: ElevatedButton.styleFrom(
