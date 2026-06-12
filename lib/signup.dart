@@ -15,6 +15,7 @@ class _SignupState extends State<Signup> {
   TextEditingController confirmpasswordcontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
   bool isvisible = true;
+  bool visible = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +107,7 @@ class _SignupState extends State<Signup> {
                   alignment: Alignment.topLeft,
                   child: Text("Confirm Password"),
                 ),
-                TextFormField(obscureText: isvisible,
+                TextFormField(obscureText: visible,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Password is required";
@@ -122,10 +123,10 @@ class _SignupState extends State<Signup> {
                     suffixIcon: IconButton(
                         onPressed: () {
                           setState(() {
-                            isvisible = !isvisible;
+                            visible = !visible;
                           });
                         },
-                        icon: isvisible?Icon(Icons.visibility_off):Icon(Icons.visibility),
+                        icon: visible?Icon(Icons.visibility_off):Icon(Icons.visibility),
                       ),
                     fillColor: Colors.white,
                     filled: true,
